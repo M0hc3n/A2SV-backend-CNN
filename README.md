@@ -1,22 +1,3 @@
-<div style="display: flex; align-items: center;">
-  <h1><img src="/static/images/icon.png" alt="App Icon" width="25" height="25"> MedAI</h1>
-</div>
-
-MedAI is a Flask application that utilizes AI algorithms to detect skin diseases and provide treatment susceptibility for patients. It offers an intelligent system that analyzes patient data and provides valuable insights for effective disease diagnosis and treatment planning.
-
-## Preview
-
-![App Preview](/screenshot.png)
-
-## Features
-
-- Skin Disease Detection: MedAI leverages advanced AI algorithms to analyze patient symptoms and data to accurately detect various diseases.
-- Treatment Susceptibility: Based on the detected disease, MedAI provides valuable information on treatment susceptibility, assisting healthcare professionals in making informed decisions.
-- User-Friendly Interface: MedAI offers an intuitive and easy-to-use interface, making it accessible for both medical professionals and patients.
-- Data Privacy and Security: MedAI prioritizes data privacy and security, ensuring that patient information is handled with the utmost confidentiality and adheres to industry standards.
-
-
-<!--h1 without bottom border-->
 ## Used Technologies
 <!--tech stack icons-->
 <p>
@@ -25,16 +6,8 @@ MedAI is a Flask application that utilizes AI algorithms to detect skin diseases
     <img/>
     <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" width="47" height="47" 
       style="height:47px;width:auto;border-radius:8rem;overflow: hidden"/>
-      
-    
   </a>
 </p>
-
-
-## Contributors
-| [<img src="https://github.com/younes-ammari.png?size=100" width="100" height="100">](https://github.com/younes-ammari) | [<img src="https://github.com/rawan-reda.png?size=100" width="100" height="100">](https://github.com/rawan-reda) | [<img src="https://github.com/Al-codeing.png?size=100" width="100" height="100">](https://github.com/Al-codeing) | [<img src="https://github.com/Simo0o36.png?size=100" width="100" height="100">](https://github.com/Simo0o36) | [<img src="https://github.com/lindamakk.png?size=100" width="100" height="100">](https://github.com/lindamakk) | [<img src="https://github.com/thomusa.png?size=100" width="100" height="100">](https://github.com/thomusa) |
-| --- | --- | --- | --- | --- | --- |
-| [Younes Ammari](https://github.com/younes-ammari) | [Rawan Reda](https://github.com/rawan-reda) | [Alma Nizar](https://github.com/Al-codeing) | [Samar Hawsawi](https://github.com/Simo0o36) | [Linda Almakramy](https://github.com/lindamakk) | [Thourya Musa](https://github.com/thomusa) |
 
 ## Getting Started
 
@@ -77,8 +50,8 @@ Make sure you have the following dependencies installed before running the proje
 - http://localhost:3000
 
 
-## Contact
-For any inquiries or feedback, please contact us at dev.younes.ammari@gmail.com.
+## Recognition:
+the models used here + API basis were brought from [this repo](https://github.com/younes-ammari/MedAI) 
 
 ## Website
 Visit the MedAI website for more information and live demos.
