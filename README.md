@@ -41,10 +41,3 @@ Make sure you have the following dependencies installed before running the proje
 
 ## Recognition:
 the models used here + API basis were brought from [this repo](https://github.com/younes-ammari/MedAI) 
-
-## Website
-Visit the MedAI website for more information and live demos.
-
-Check out the live demo of the application [https://medai.onrender.com](https://medai.onrender.com).
-
-
