@@ -6,11 +6,13 @@ from utils.preprocesser import preprocess_image
 from utils.prediction import predict
 from utils.response_handler import get_response_from_model_output
 
-from utils.llama_handler import askme, second_ask_me
+from utils.llama_handler import ask_llm, ask_llm_handler
+from utils.llm_utils import prompt_builder_for_diagnose
 
 from errors.non_formatted_input import input_non_valid_error
 from errors.status import status
 
+import requests
 
 app = Flask(__name__)
 
@@ -32,19 +34,26 @@ def detect():
 
     response = get_response_from_model_output(prediction)
 
-    # Example usage
-    # - Context: First describe your problem.
-    # - Question: Then make the question.
+    llm_response = ask_llm_handler(False, response=response)
 
-    question = '''I'm a 35-year-old male and for the past few months, I've been experiencing fatigue, 
-    increased sensitivity to cold, and dry, itchy skin. 
-    Diagnose my illness'''
+    return make_response(
+        jsonify({**response, "llm_response": llm_response}), status["success"]
+    )
 
-    print("here 1")
-    print(askme(question))
 
-    # print(second_ask_me(question))
-    return make_response(jsonify(response), status["success"])
+@app.route("/diagnose", methods=["POST"])
+def diagnose():
+    try:
+        data = request.json
+        print(data)
+        symptoms = data.get('symptoms')
+
+    except KeyError:
+        return make_response(jsonify(input_non_valid_error), status["input_not_valid"])
+
+    response = ask_llm_handler(True, symptoms=symptoms)
+
+    return make_response(jsonify({"llm_response": response}), status["success"])
 
 
 if __name__ == "__main__":

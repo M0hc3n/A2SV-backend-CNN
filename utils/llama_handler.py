@@ -1,42 +1,45 @@
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    BitsAndBytesConfig,
-    AutoModel,
+from langchain_huggingface import HuggingFaceEndpoint
+from langchain_core.prompts import PromptTemplate
+
+from utils.config.get_hgf_pass import getpass
+
+from utils.llm_utils import (
+    description_prompt_builder_from_response,
+    causes_prompt_builder_from_response,
+    treatement_prompt_builder_from_response,
+    parse_llm_response_to_dict,
+    prompt_builder_for_diagnose,
 )
-import torch
 
-from transformers import pipeline
+from utils.config.llm_config import llm_config
 
-pipe = pipeline("text-generation", model="TinyLlama/TinyLlama-1.1B-Chat-v1.0", torch_dtype=torch.bfloat16, device_map="auto")
-
-
-def askme(question):
-    # We use the tokenizer's chat template to format each message - see https://huggingface.co/docs/transformers/main/en/chat_templating
-    messages = [
-        {
-            "role": "system",
-            "content": "You are a friendly chatbot who acts as a doctor",
-        },
-        {"role": "user", "content": question},
-    ]
-
-    print("here 2")
-
-    prompt = pipe.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-    print("here 3")
-    
-    outputs = pipe(prompt, max_new_tokens=256, do_sample=True, temperature=0.7, top_k=50, top_p=0.95)
-    print("here 4")
-    
-    return outputs[0]["generated_text"]
+HUGGINGFACEHUB_API_TOKEN = getpass()
 
 
-def second_ask_me(question):
-    # client = Client("https://umutozdemir-medicalai-clinicalbert.hf.space/")
-    # result = client.predict(
-    #     question,  # str  in 'Input' Textbox component
-    #     api_name="/predict",
-    # )
-    # print(result)
-    pass
+def ask_llm(question):
+    prompt = PromptTemplate.from_template(llm_config["template"])
+
+    llm = HuggingFaceEndpoint(
+        repo_id=llm_config["repo_id"],
+        max_length=llm_config["max_length"],
+        temperature=llm_config["temperature"],
+        huggingfacehub_api_token=HUGGINGFACEHUB_API_TOKEN,
+    )
+    llm_chain = prompt | llm
+
+    return llm_chain.invoke({"question": question})
+
+
+def ask_llm_handler(diagnose, response="", symptoms=""):
+    if diagnose:
+        response = ask_llm(question=prompt_builder_for_diagnose(symptoms))
+
+        return response
+    else:
+        description = ask_llm(description_prompt_builder_from_response(response))
+        causes = ask_llm(causes_prompt_builder_from_response(response))
+        treatement = ask_llm(treatement_prompt_builder_from_response(response))
+
+        return parse_llm_response_to_dict(
+            desc=description, causes=causes, treatement=treatement
+        )
