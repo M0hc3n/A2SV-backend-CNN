@@ -1,3 +1,4 @@
+import os 
 
 def getpass():
-    return "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"
+    return os.environ.get("llm_pass")
