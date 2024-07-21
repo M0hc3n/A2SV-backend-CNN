@@ -9,6 +9,9 @@ from utils.llm_utils import (
     treatement_prompt_builder_from_response,
     parse_llm_response_to_dict,
     prompt_builder_for_diagnose,
+    prompt_builder_for_tip,
+    prompt_builder_for_tip_detail,
+    parse_llm_tip,
 )
 
 from utils.config.llm_config import llm_config
@@ -43,3 +46,10 @@ def ask_llm_handler(diagnose, response="", symptoms=""):
         return parse_llm_response_to_dict(
             desc=description, causes=causes, treatement=treatement
         )
+
+
+def get_tip_from_llm():
+    tip = ask_llm(prompt_builder_for_tip())
+    tip_detailed = ask_llm(prompt_builder_for_tip_detail(tip))
+
+    return parse_llm_tip(tip=tip, detailed=tip_detailed)
