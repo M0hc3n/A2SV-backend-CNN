@@ -19,7 +19,7 @@ def detect():
     try:
         # Forward the file to the cv:5001/detect endpoint
         files = {"file": (file.filename, file.stream, file.content_type)}
-        cv_response = requests.post("http://cv:5001/detect", files=files)
+        cv_response = requests.post("http://localhost:5001/detect", files=files)
         cv_response.raise_for_status()
         response = cv_response.json()
     except requests.RequestException as e:
