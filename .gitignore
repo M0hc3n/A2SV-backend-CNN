@@ -1,3 +1,6 @@
 *.zip
 /Dev
 .env
+
+__pycache__/
+*.pyc

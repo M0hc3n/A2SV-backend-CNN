@@ -1,0 +1,25 @@
+version: "3.8"
+
+
+services:
+  llm:
+    container_name: llm
+    build:
+      context: ./llm
+      dockerfile: Dockerfile
+    ports:
+      
+      - "5000:5000"
+    volumes:
+      - ./llm:/usr/src/app
+  cv:
+    container_name: cv
+    build:
+      context: ./cv
+      dockerfile: Dockerfile
+
+    ports:
+      - "5001:5001"
+
+    volumes:
+      - ./cv:/usr/src/app
