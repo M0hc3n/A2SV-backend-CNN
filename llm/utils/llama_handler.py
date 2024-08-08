@@ -16,7 +16,7 @@ from utils.llm_utils import (
 
 from utils.config.llm_config import llm_config
 
-HUGGINGFACEHUB_API_TOKEN = "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"
+HUGGINGFACEHUB_API_TOKEN = "<YOUR TOKEN>"
 
 
 def ask_llm(question):
