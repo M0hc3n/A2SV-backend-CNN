@@ -11,7 +11,6 @@ from errors.status import status
 
 app = Flask(__name__)
 
-
 @app.route("/detect", methods=["POST"])
 def detect():
     try:
@@ -19,15 +18,15 @@ def detect():
     except KeyError:
         return make_response(jsonify(input_non_valid_error), status["input_not_valid"])
 
-    path = get_path_from_file(file)
+    imageBytesIO = get_path_from_file(file)
 
-    model = load_model()
+    img = preprocess_image(imageBytesIO)
 
-    img = preprocess_image(path)
+    learn = load_model()
 
-    prediction = predict(model, img)
+    pred_class, pred_idx, outputs = predict(learn, img)
 
-    response = get_response_from_model_output(prediction)
+    response = get_response_from_model_output(pred_class, pred_idx, outputs)
     return response
 
 

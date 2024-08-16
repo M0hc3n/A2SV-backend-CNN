@@ -1,12 +1,12 @@
-from keras.models import model_from_json
-from utils.config.model_config import model_config
+from fastai.vision.all import Path
+from fastbook import load_learner
 
+import pathlib
+temp = pathlib.PosixPath
+pathlib.PosixPath = temp # !WARNING: change to pathlib.WindowsPath when used on Windows
 
 def load_model():
-    j_file = open(model_config["model_json_name"], "r")
-    loaded_json_model = j_file.read()
-    j_file.close()
-    model = model_from_json(loaded_json_model)
-    model.load_weights(model_config["model_dump"])
+    custom_path = Path("./models/cv_initial_model.pkl")
+    learn = load_learner(custom_path)
 
-    return model
+    return learn

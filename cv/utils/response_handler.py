@@ -1,18 +1,11 @@
-import numpy as np
+# from utils.config.model_label import skin_labels
+# from utils.config.medicines import find_medicine
 
-from utils.config.model_label import skin_labels
-from utils.config.medicines import find_medicine
-
-def get_response_from_model_output(prediction):
-    pred = np.argmax(prediction)
-
-    disease = skin_labels[pred]
-    accuracy = prediction[0][pred]
-    accuracy = round(accuracy * 100, 2)
-    medicine = find_medicine(pred)
+def get_response_from_model_output(pred_class, pred_idx, outputs):
+    # medicine = find_medicine(pred)
 
     return {
-        "disease": disease,
-        "accuracy": accuracy,
-        "medicine": medicine,
+        "disease": pred_class,
+        "accuracy": outputs[pred_idx].item(),
+        # "medicine": medicine,
     }

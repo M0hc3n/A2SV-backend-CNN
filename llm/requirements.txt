@@ -1,4 +1,4 @@
 langchain_huggingface
 langchain_core
 Flask
-requests
+# requests

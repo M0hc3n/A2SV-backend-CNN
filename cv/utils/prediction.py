@@ -1,5 +1,5 @@
 
-def predict(model, img):
-    prediction = model.predict(img)
+def predict(learn, img):
+    pred_class, pred_idx, outputs = learn.predict(img)
     
-    return prediction
+    return pred_class, pred_idx, outputs
